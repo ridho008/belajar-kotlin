@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">explicit-intent</string>
+    <string name="move_activity">Move Activity</string>
+    <string name="halaman_move_activity">Ini Halaman Activity Move</string>
+    <string name="move_with_data">Move With Data</string>
+    <string name="data_received">Data Received</string>
+    <string name="move_with_object">Move With Object Percelable</string>
+    <string name="object_received">Object Received</string>
+</resources>
