@@ -10,7 +10,7 @@ class PostAdapter (private val list: ArrayList<PostResponse>) : RecyclerView.Ada
                 fun bind(postResponse: PostResponse) {
                     with(itemView) {
                         val text: String = "id: ${postResponse.id}\n" + "title: ${postResponse.title}\n" + "body: ${postResponse.body}"
-                        tvText.text = text
+                        itemView.tvText.text = text
                     }
                 }
             }
