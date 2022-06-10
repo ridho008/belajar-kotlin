@@ -10,7 +10,9 @@ data class Movie(
     @SerializedName("id") val id : String?,
     @SerializedName("title") val title : String?,
     @SerializedName("poster_path") val poster : String?,
-    @SerializedName("release_date") val release : String?
+    @SerializedName("release_date") val release : String?,
+    @SerializedName("overview") val overview : String?,
+    @SerializedName("popularity") val popularity : String,
 ) : Parcelable {
-    constructor() : this("", "", "", "")
+    constructor() : this("", "", "", "","", "")
 }

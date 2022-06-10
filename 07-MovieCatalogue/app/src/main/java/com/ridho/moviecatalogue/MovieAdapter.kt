@@ -17,6 +17,8 @@ class MovieAdapter(
         fun bindMovie(movie : Movie){
             itemView.movie_title.text = movie.title
             itemView.movie_release_date.text = movie.release
+            itemView.movie_overview.text = movie.overview
+            itemView.movie_popularity.text = movie.popularity
             Glide.with(itemView).load(IMAGE_BASE + movie.poster).into(itemView.movie_poster)
         }
     }
