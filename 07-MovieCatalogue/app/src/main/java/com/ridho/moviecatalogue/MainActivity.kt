@@ -1,5 +1,6 @@
 package com.ridho.moviecatalogue
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    var movies: List<Movie>? = null
+    private lateinit var movieAdapter: MovieAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,7 +20,13 @@ class MainActivity : AppCompatActivity() {
         rv_movies_list.layoutManager = LinearLayoutManager(this)
         rv_movies_list.setHasFixedSize(true)
         getMovieData { movies : List<Movie> ->
-            rv_movies_list.adapter = MovieAdapter(movies)
+            rv_movies_list.adapter = MovieAdapter(movies, object : MovieAdapter.OnAdapterListener {
+                override fun onClick(result: Movie) {
+                    val intent = Intent(applicationContext, DetailMovieActivity::class.java)
+                    intent.putExtra(DetailMovieActivity.EXTRA_DATA, result)
+                    startActivity(intent)
+                }
+            })
         }
     }
 
@@ -28,9 +38,24 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                movies = response.body()!!.movies
                 return callback(response.body()!!.movies)
             }
 
         })
+    }
+
+    private fun setupRecyclerView(){
+        movieAdapter = MovieAdapter(arrayListOf(), object : MovieAdapter.OnAdapterListener {
+            override fun onClick(result: Movie) {
+                val intent = Intent(applicationContext, DetailMovieActivity:: class.java)
+                intent.putExtra(DetailMovieActivity.EXTRA_DATA, result)
+                startActivity(intent)
+            }
+        })
+        rv_movies_list.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = movieAdapter
+        }
     }
 }

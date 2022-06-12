@@ -9,7 +9,8 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 
 
 class MovieAdapter(
-    private val movies : List<Movie>
+    private val movies : List<Movie>,
+    val listener: OnAdapterListener
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
     class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -33,5 +34,12 @@ class MovieAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bindMovie(movies.get(position))
+        holder.itemView.setOnClickListener {
+            listener.onClick(movies[position])
+        }
+    }
+
+    interface OnAdapterListener {
+        fun onClick(result: Movie)
     }
 }
