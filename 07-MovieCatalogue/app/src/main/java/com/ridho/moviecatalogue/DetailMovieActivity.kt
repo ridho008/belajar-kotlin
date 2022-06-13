@@ -19,6 +19,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
         movies = intent.getParcelableExtra(EXTRA_DATA)
         tv_title.text = movies?.title
+        tv_overview.text = movies?.overview
         Glide.with(img_poster).load(IMAGE_BASE + movies!!.poster).into(img_poster)
     }
 }
