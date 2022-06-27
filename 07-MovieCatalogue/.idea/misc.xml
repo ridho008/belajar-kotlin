@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1945" />
         <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/layout/activity_detail_movie.xml" value="0.22" />
         <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/layout/fragment_movie.xml" value="0.19166666666666668" />
         <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/layout/movie_item.xml" value="0.25" />
+        <entry key="..\:/ridho-surya/belajar-kotlin/07-MovieCatalogue/app/src/main/res/menu/menu_bottom.xml" value="0.371875" />
       </map>
     </option>
   </component>
