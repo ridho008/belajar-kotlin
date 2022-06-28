@@ -21,13 +21,13 @@ class MovieFragment : Fragment() {
         fun newInstance() = MovieFragment()
     }
 
-    private lateinit var viewModel: MovieFragment
+    private lateinit var viewModel: Movie
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { return inflater.inflate(R.layout.fragment_movie, container, false) }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieFragment::class.java)
+//        viewModel = ViewModelProvider(this).get(Movie::class.java)
         rv_movies_list.layoutManager = LinearLayoutManager(activity)
         rv_movies_list.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->
@@ -63,14 +63,18 @@ class MovieFragment : Fragment() {
         val apiService = MovieApiService.getInstance().create(MovieApiInterface::class.java)
         apiService.getMovieList().enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-        }
-            override fun onResponse(call:Call<MovieResponse>, response: Response<MovieResponse>) {
-            movies = response.body()!!.movies
-            return
-            callback(response.body()!!.movies)
-        }
+
+            }
+
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                movies = response.body()!!.movies
+                return callback(response.body()!!.movies)
+            }
+
         })
     }
+
+
 }
 
 
