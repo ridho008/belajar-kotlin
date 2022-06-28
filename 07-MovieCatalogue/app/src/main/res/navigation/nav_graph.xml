@@ -6,18 +6,18 @@
     app:startDestination="@id/movieFragment">
 
     <fragment
-        android:id="@+id/movieFragment2"
+        android:id="@+id/movieFragment"
         android:name="com.ridho.moviecatalogue.MovieFragment"
-        android:label="fragment_movie"
+        android:label="Movie"
         tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/tvShowFragmant"
         android:name="com.ridho.moviecatalogue.TvShowFragmant"
-        android:label="fragment_tv_show_fragmant"
+        android:label="TV Show"
         tools:layout="@layout/fragment_tv_show_fragmant" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.ridho.moviecatalogue.FavoriteFragment"
-        android:label="fragment_favorite"
+        android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
 </navigation>
