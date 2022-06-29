@@ -1,59 +1,77 @@
 package com.ridho.uasmoviecatalog
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.android.synthetic.main.fragment_t_v_show.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TVShowFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TVShowFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    var tvshowes: List<TVShow>? = null
+    private lateinit var tvshowAdapter: TVShowAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    companion object {
+        fun newInstance() = TVShowFragment()
+    }
+
+//    private lateinit var viewModel: MovieViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { return inflater.inflate(R.layout.fragment_t_v_show, container, false) }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        rv_tvshow_list.layoutManager = LinearLayoutManager(activity)
+        rv_tvshow_list.setHasFixedSize(true)
+        getMovieData { tvshowes: List<TVShow> ->
+            rv_tvshow_list.adapter = TVShowAdapter(tvshowes, object :TVShowAdapter.OnAdapterListener {
+
+                override fun onClick(result: TVShow) {
+                    val intent = Intent(activity, DetailTVShowActivity::class.java)
+                    intent.putExtra(DetailTVShowActivity.EXTRA_DATA, result)
+                    startActivity(intent)
+                }
+            })
+        }
+    }
+    private fun setupRecyclerView(){
+        tvshowAdapter = TVShowAdapter(arrayListOf(),
+            object : TVShowAdapter.OnAdapterListener {
+                override fun onClick(result: TVShow) {
+                    val intent = Intent(activity,
+                        DetailTVShowActivity::class.java)
+                    intent.putExtra(DetailTVShowActivity.EXTRA_DATA,
+                        result)
+                    startActivity(intent)
+                }
+            })
+        rv_tvshow_list.apply {
+            layoutManager =
+                LinearLayoutManager(context)
+            adapter = tvshowAdapter
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_t_v_show, container, false)
-    }
+    private fun getMovieData(callback: (List<TVShow>) -> Unit){
+        val apiService = TVShowApiService.getInstance().create(TVShowApiInterface::class.java)
+        apiService.getTVShowList().enqueue(object : Callback<TVShowResponse> {
+            override fun onFailure(call: Call<TVShowResponse>, t: Throwable) {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TVShowFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TVShowFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
             }
+
+            override fun onResponse(call: Call<TVShowResponse>, response: Response<TVShowResponse>) {
+                tvshowes = response.body()!!.tvshowes
+                return callback(response.body()!!.tvshowes)
+            }
+
+        })
     }
 }

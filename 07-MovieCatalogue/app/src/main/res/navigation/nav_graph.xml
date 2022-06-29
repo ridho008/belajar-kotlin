@@ -9,7 +9,7 @@
         android:id="@+id/movieFragment"
         android:name="com.ridho.moviecatalogue.MovieFragment"
         android:label="Movie"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie"/>
     <fragment
         android:id="@+id/tvShowFragmant"
         android:name="com.ridho.moviecatalogue.TvShowFragmant"

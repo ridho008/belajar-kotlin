@@ -21,13 +21,13 @@ class MovieFragment : Fragment() {
         fun newInstance() = MovieFragment()
     }
 
-    private lateinit var viewModel: Movie
+    private lateinit var viewModel: MovieViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { return inflater.inflate(R.layout.fragment_movie, container, false) }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(Movie::class.java)
+        viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         rv_movies_list.layoutManager = LinearLayoutManager(activity)
         rv_movies_list.setHasFixedSize(true)
         getMovieData { movies: List<Movie> ->

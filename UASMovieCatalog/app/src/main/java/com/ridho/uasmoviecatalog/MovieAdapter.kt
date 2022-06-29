@@ -15,6 +15,7 @@ class MovieAdapter(
     class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val IMAGE_BASE = "https://image.tmdb.org/t/p/w500/"
         fun bindMovie(movie : Movie){
+
             itemView.movie_title.text = movie.title
             itemView.movie_release_date.text = movie.release
             //itemView.movie_overview.text = movie.overview
