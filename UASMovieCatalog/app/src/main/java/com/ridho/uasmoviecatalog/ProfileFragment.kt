@@ -12,43 +12,55 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ridho.uasmoviecatalog.databinding.ActivityMainBinding
+//import com.ridho.uasmoviecatalog.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.w3c.dom.Text
+import java.nio.file.Files.list
+import java.util.Collections.list
 
 
-//private lateinit var binding: ActivityMainBinding
-//private val binding get() = _binding!!
 class ProfileFragment : Fragment() {
+    // mengambil secara global
+    lateinit var image: ImageView
+    lateinit var title: TextView
+    lateinit var subtitle: TextView
+    lateinit var list: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
 
     ): View? {
+        val root = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        title = root.findViewById(R.id.title)
+        subtitle = root.findViewById(R.id.subtitle)
+        image = root.findViewById(R.id.image)
+        list = root.findViewById(R.id.list)
 //         Inflate the layout for this fragment
 //         my profile
 
-
-        val image = view?.findViewById<ImageView>(R.id.image)
-        val title = view?.findViewById<TextView>(R.id.title)
-        val subtitle = view?.findViewById<TextView>(R.id.subtitle)
-        val list = view?.findViewById<RecyclerView>(R.id.list)
-
-        if (image != null) {
-            image.setImageResource(R.drawable.my_photo)
-        }
-        title?.text = "Ridha Surya"
-        subtitle?.text = "Web Development"
-
-        if (list != null) {
-            list.adapter = linkAdapter
-        } else {
-            list?.adapter = linkAdapter
-        }
-
-
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-
+//        val ig = view?.findViewById<ImageView>(R.id.titleig)
+//        val image = view?.findViewById<ImageView>(R.id.image)
+//        val title = view?.findViewById<TextView>(R.id.title)
+//        val subtitle = view?.findViewById<TextView>(R.id.subtitle)
+//        val list = view?.findViewById<RecyclerView>(R.id.list)
+//
+//        if (image != null) {
+//            image.setImageResource(R.drawable.my_photo)
+//        }
+        title.text = "Ridha Surya"
+        subtitle.text = "Belajar Android Kotlin"
+        list.adapter = linkAdapter
+//        if (list != null) {
+//            list.adapter = linkAdapter
+//        } else {
+//            list?.adapter = linkAdapter
+//        }
+//
+//
+//        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return root
     }
 
 //    override fun onCreateView(
